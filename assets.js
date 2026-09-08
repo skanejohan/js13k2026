@@ -15,10 +15,10 @@ let _createCar = () => _createCanvas(280, 180, _ctx => {
 
     _ctx.fillStyle = '#F17B85FF';
     _ctx.beginPath();
-    _ctx.moveTo(40, 100);
-    _ctx.lineTo(240, 100);
-    _ctx.bezierCurveTo(260, 50, 260, 0, 140, 0);
-    _ctx.bezierCurveTo(20, 0, 20, 50, 40, 100);
+    _ctx.moveTo(40, 103);
+    _ctx.lineTo(240, 103);
+    _ctx.bezierCurveTo(260, 52, 260, 2, 140, 2);
+    _ctx.bezierCurveTo(20, 2, 20, 52, 40, 102);
     _ctx.closePath();
     _ctx.fill();
     _ctx.strokeStyle = '#b02a37';
