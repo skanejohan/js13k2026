@@ -133,6 +133,9 @@ let update = (dt) => {
     // current accumulated player curvature i.e. if they are similar, the car will be in the middle of the track
     car.pos = playerCurvature - trackCurvature;
 
+    let targetTilt = (right.down ? 1 : 0) - (left.down ? 1 : 0);
+    carTilt += (targetTilt - carTilt) * Math.min(et * 5, 1);
+
     _updateVisualCoordinates();
     _checkForCollisions();
     _updateDeadObjects(et);

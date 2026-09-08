@@ -7,8 +7,6 @@ let _createCanvas = (w, h, fn) => {
 }
 
 let _createCar = () => _createCanvas(280, 180, _ctx => {
-    _ctx.fillStyle = "yellow";
-
     _ctx.fillStyle = '#333';
     _ctx.beginPath();
     _ctx.roundRect(20, 130, 50, 50, 5);

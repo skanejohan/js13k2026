@@ -42,6 +42,8 @@ let infoTimer;
 let skyFrom = -1;
 let skyTransitionStart = -999999;
 
+let carTilt = 0;
+
 let levelFailedMenuItemSelected = 0;
 
 let nextLevel = () => {

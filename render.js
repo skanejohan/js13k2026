@@ -184,13 +184,16 @@ let _renderRoad = () => {
 
 let _renderCar = () => {
     let w = ww(28);
-    let h = hh(18);
-    ctx.drawImage(carAsset, visualCoordinates.carX - w / 2, visualCoordinates.carY - h / 2, w, h);
+    let h = hh(21);
+    let cx = visualCoordinates.carX;
+    let cy = visualCoordinates.carY;
 
-    if (debug) {
-        ctx.fillStyle = "black";
-        ctx.fillRect(visualCoordinates.carX - 1, visualCoordinates.carY - 1, 2, 2);
-    }
+    ctx.save();
+    ctx.translate(cx, cy);
+    // Horizontal shear: top of car leans in direction of turn
+    ctx.transform(1, 0, -carTilt * 0.18, 1, 0, 0);
+    ctx.drawImage(carAsset, -w / 2, -h / 2, w, h);
+    ctx.restore();
 }
 
 let _renderObject = (o, size, key) => {
