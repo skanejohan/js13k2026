@@ -159,7 +159,7 @@ let _renderHills = () => {
     ctx.fillStyle = gradient;
 
     let startX = undefined;
-    for (let x = 0; x <= W; x++) {
+    for (let x = -1; x <= W; x++) {
         let y = Math.sin(x * 0.03 + trackCurvature) * 16;
         if (startX && (y < 0 || x == W)) {
             ctx.lineTo(xx(x), yy(H / 2 - y));
@@ -171,12 +171,7 @@ let _renderHills = () => {
             if (!startX) {
                 startX = x;
                 ctx.beginPath();
-                if (startX === 1) {
-                    ctx.moveTo(xx(0), yy(H / 2));
-                    ctx.lineTo(xx(0), yy(H / 2 - y));
-                } else {
-                    ctx.moveTo(xx(x), yy(H / 2));
-                }
+                ctx.moveTo(xx(x), yy(H / 2));
             }
             ctx.lineTo(xx(x), yy(H / 2 - y));
         } 
