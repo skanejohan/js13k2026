@@ -86,6 +86,7 @@ let render = (w, h) => {
         } else {
             _renderSky(level - 1);
         }
+        _renderHills();
         _renderGrass(visualCoordinates.grassIntervals);
         _renderRoad();
         rainbowCoins.forEach((o, i) => _renderObject(o, 40, `R${i}`));
@@ -146,6 +147,35 @@ let _renderSky = (timeOfDay = 2) => {
     gradient.addColorStop(1.00, s[4]);
     ctx.fillStyle = gradient;
     ctx.fillRect(_x, _y, W * _cell + delta, H / 2 * _cell + delta);
+}
+
+let _renderHills = () => {
+    let gradient = ctx.createLinearGradient(0, yy(H / 2), 0, yy(H / 2 - 16));
+    gradient.addColorStop(0.0, '#4f5152');
+    gradient.addColorStop(0.4, '#727475');
+    gradient.addColorStop(0.7, '#bec1c2');
+    gradient.addColorStop(0.9, 'white');
+    gradient.addColorStop(1.0, 'white');
+    ctx.fillStyle = gradient;
+
+    let startX = undefined;
+    for (let x = 0; x <= W; x++) {
+        let y = Math.sin(x * 0.03 + trackCurvature) * 16;
+        if (startX && (y < 0 || x == W)) {
+            ctx.lineTo(xx(x), yy(H / 2 - y));
+            ctx.lineTo(xx(x), yy(H / 2));
+            ctx.lineTo(xx(startX), yy(H / 2));
+            ctx.fill();
+            startX = undefined;
+        } else if (y > 0) {
+            if (!startX) {
+                startX = x;
+                ctx.beginPath();
+                ctx.moveTo(xx(x), yy(H / 2));
+            }
+            ctx.lineTo(xx(x), yy(H / 2 - y));
+        } 
+    }
 }
 
 let _renderGrass = (coordinates) => {
