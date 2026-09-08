@@ -175,9 +175,8 @@ let _renderRoad = () => {
     }
     ctx.closePath();
     const gradient = ctx.createLinearGradient(0, yy(H / 2), 0, yy(H));
-    gradient.addColorStop(0.0, '#777777');
-    gradient.addColorStop(0.5, '#555555');
-    gradient.addColorStop(1.0, '#333333');
+    gradient.addColorStop(0.0, '#f75ea6');
+    gradient.addColorStop(1.0, '#63dcf7');
     ctx.fillStyle = gradient;
     ctx.fill();
 }
