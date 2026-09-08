@@ -39,6 +39,9 @@ let debug = true;
 let infoFont;
 let infoTimer;
 
+let skyFrom = -1;
+let skyTransitionStart = -999999;
+
 let levelFailedMenuItemSelected = 0;
 
 let nextLevel = () => {

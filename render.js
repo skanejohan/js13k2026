@@ -47,7 +47,7 @@ let render = (w, h) => {
         text("PRESS SPACE TO PLAY", xx(W / 2), yy(90), medium, "white");
         return;
     } else if (state === LEVELFAILED) {
-        _renderSky();
+        _renderSky(level - 1);
         _renderGrass([[0, 5], [4, 9], [12, 13], [24, 26]]);
         text("LEVEL FAILED", xx(W / 2), yy(24), large, "white");
         if (levelFailedMenuItemSelected === 0) {
@@ -77,7 +77,15 @@ let render = (w, h) => {
         return;
     } else {
         delta = onEdge ? Math.random() * 5 : 0;
-        _renderSky();
+        let skyAge = totalTime - skyTransitionStart;
+        if (skyFrom >= 0 && skyAge < 1500) {
+            _renderSky(skyFrom);
+            ctx.globalAlpha = skyAge / 1500;
+            _renderSky(level - 1);
+            ctx.globalAlpha = 1;
+        } else {
+            _renderSky(level - 1);
+        }
         _renderGrass(visualCoordinates.grassIntervals);
         _renderRoad();
         rainbowCoins.forEach((o, i) => _renderObject(o, 40, `R${i}`));
@@ -120,13 +128,22 @@ let _restoreClipRect = () => {
     ctx.restore();
 };
 
-let _renderSky = () => {
+let _renderSky = (timeOfDay = 2) => {
+    // 0=late night, 1=early morning, 2=late morning, 3=even lighter, 4=bright day
+    const skies = [
+        ['#050318', '#0f0a3d', '#1e1060', '#2a1458', '#18082e'], // late night
+        ['#120d4a', '#2b1a7a', '#7a3f96', '#d4607a', '#f09060'], // early morning
+        ['#3b2e91', '#6a4fbf', '#ff9ec4', '#ffb347', '#ffd194'], // late morning
+        ['#6b5cbc', '#9980d4', '#f4aac8', '#ffc87a', '#ffe8b0'], // even lighter
+        ['#b8a8e8', '#ccd8f4', '#f4cce4', '#fde8b0', '#fffaee'], // bright day
+    ];
+    const s = skies[timeOfDay];
     const gradient = ctx.createLinearGradient(0, 0, 0, H / 2 * _cell);
-    gradient.addColorStop(0.00, '#3b2e91');
-    gradient.addColorStop(0.30, '#6a4fbf');
-    gradient.addColorStop(0.55, '#ff9ec4');
-    gradient.addColorStop(0.75, '#ffb347');
-    gradient.addColorStop(1.00, '#ffd194');
+    gradient.addColorStop(0.00, s[0]);
+    gradient.addColorStop(0.30, s[1]);
+    gradient.addColorStop(0.55, s[2]);
+    gradient.addColorStop(0.75, s[3]);
+    gradient.addColorStop(1.00, s[4]);
     ctx.fillStyle = gradient;
     ctx.fillRect(_x, _y, W * _cell + delta, H / 2 * _cell + delta);
 }

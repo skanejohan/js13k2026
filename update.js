@@ -38,6 +38,8 @@ let update = (dt) => {
         infoTimer += 80 * et;
         infoFont = Math.min(infoFont, 144);
         if (infoTimer > 300) {
+            skyFrom = level - 1;
+            skyTransitionStart = totalTime;
             nextLevel();
             state = PLAYING;
         } else {
