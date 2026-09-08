@@ -80,7 +80,11 @@ let nextLevel = () => {
 
     tracks = [[0, 100]];
     for (let i = 0; i < 20 + 3 * level; i++) {
-        let sharpness = Math.random() * 1.8 - 0.8;
+        let maxSharpness = 0.3 + 0.1 * level;
+        let sharpness = Math.random() * maxSharpness;
+        if (Math.random() < 0.5) {
+            sharpness = -sharpness;
+        }
         let length = Math.random() * 100 + 50;
         tracks.push([sharpness, length]);
     }
