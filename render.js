@@ -171,7 +171,12 @@ let _renderHills = () => {
             if (!startX) {
                 startX = x;
                 ctx.beginPath();
-                ctx.moveTo(xx(x), yy(H / 2));
+                if (startX === 1) {
+                    ctx.moveTo(xx(0), yy(H / 2));
+                    ctx.lineTo(xx(0), yy(H / 2 - y));
+                } else {
+                    ctx.moveTo(xx(x), yy(H / 2));
+                }
             }
             ctx.lineTo(xx(x), yy(H / 2 - y));
         } 
